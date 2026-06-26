@@ -1,5 +1,6 @@
 from preprocessing import clean
 from pathlib import Path
+import torch
 
 path=Path(__file__).parent.parent / "dataset/input.txt"
 with open(path, "r") as f:
@@ -13,5 +14,7 @@ def encoder(text):
 def decoder(indices):
     return ''.join([chars[i] for i in indices])
 
-print(encoder("hello world"))
-print(decoder(encoder("hello world")))
+finalData=torch.tensor(encoder(dataset),dtype=torch.long)
+
+print("final data shape:", finalData.shape,"data type:", finalData.dtype)
+print(finalData[:1000])
