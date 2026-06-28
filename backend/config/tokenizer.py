@@ -18,9 +18,28 @@ finalData=torch.tensor(encoder(dataset),dtype=torch.long)
 
 print("final data shape:", finalData.shape,"data type:", finalData.dtype)
 print(finalData[:1000])
+print("---"*10)
+
+
 
 n=int(0.8*len(finalData))
 train_data=finalData[:n]
 test_data=finalData[n:]
+
+torch.manual_seed(1337)
+batch_size=4
+contex_window=8
+
+def getbatch(split):
+    data=train_data if split=="train" else test_data
+    ix=torch.randint(len(data)-contex_window,(batch_size,))
+    x=torch.stack([data[i:i+contex_window] for i in ix])
+    y=torch.stack([data[i+1:i+contex_window+1] for i in ix])
+    return x,y
+
+xb,yb=getbatch("train")
+
+print("inputs:",xb.shape,xb)
+print("targets:",yb.shape,yb)
 
 
