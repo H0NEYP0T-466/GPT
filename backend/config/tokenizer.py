@@ -28,13 +28,14 @@ test_data=finalData[n:]
 
 torch.manual_seed(1337)
 batch_size=4
-contex_window=8
+context_window=8
+train_data[:context_window+1]
 
 def getbatch(split):
     data=train_data if split=="train" else test_data
-    ix=torch.randint(len(data)-contex_window,(batch_size,))
-    x=torch.stack([data[i:i+contex_window] for i in ix])
-    y=torch.stack([data[i+1:i+contex_window+1] for i in ix])
+    ix=torch.randint(len(data)-context_window,(batch_size,))
+    x=torch.stack([data[i:i+context_window] for i in ix])
+    y=torch.stack([data[i+1:i+context_window+1] for i in ix])
     return x,y
 
 xb,yb=getbatch("train")
