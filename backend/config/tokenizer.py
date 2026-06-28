@@ -18,3 +18,9 @@ finalData=torch.tensor(encoder(dataset),dtype=torch.long)
 
 print("final data shape:", finalData.shape,"data type:", finalData.dtype)
 print(finalData[:1000])
+
+n=int(0.8*len(finalData))
+train_data=finalData[:n]
+test_data=finalData[n:]
+
+
