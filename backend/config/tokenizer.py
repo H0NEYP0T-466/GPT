@@ -1,4 +1,4 @@
-from preprocessing import clean
+from .preprocessing import clean
 from pathlib import Path
 import torch
 
