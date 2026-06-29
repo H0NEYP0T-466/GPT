@@ -17,16 +17,16 @@ class bigramModel(nn.Module):
             loss=None
         else:
             loss=F.cross_entropy(logits.view(-1,vocab_size),targets.view(-1))
-            return logits,loss
+        return logits,loss
     
-        def generate(self,idx,max_new_tokens):
-            for _ in range(max_new_tokens):
-                logits,loss=self(idx)
-                logits=logits[:,-1,:]
-                probs=F.softmax(logits,dim=-1)
-                idx_next=torch.multinomial(probs,num_samples=1)
-                idx=torch.cat((idx,idx_next),dim=1)
-            return idx
+    def generate(self,idx,max_new_tokens):
+        for _ in range(max_new_tokens):
+            logits,loss=self.forward(idx)
+            logits=logits[:,-1,:]
+            probs=F.softmax(logits,dim=-1)
+            idx_next=torch.multinomial(probs,num_samples=1)
+            idx=torch.cat((idx,idx_next),dim=1)
+        return idx
 
 
 
@@ -37,4 +37,5 @@ print("loss:",out[1])
 idx=torch.zeros((1,1),dtype=torch.long)
 
 print("---"*10)
-print(decoder(m.generate(idx,max_new_tokens=100)[0].tolist()))
+def random():
+    return(decoder(m.generate(idx,max_new_tokens=100)[0].tolist()))

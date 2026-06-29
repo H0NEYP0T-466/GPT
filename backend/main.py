@@ -1,15 +1,16 @@
 from fastapi import FastAPI
 import uvicorn
 import logging
+from module.bigramModel import random
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app=FastAPI()
 
-@app.get("/")
-def fun():
-    return "hello world"
+@app.get("/generate")
+def generate():
+    return random()
 
 if __name__ == "__main__":
     
