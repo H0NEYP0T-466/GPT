@@ -7,6 +7,7 @@ with open(path, "r") as f:
         dataset=f.read()
 
 chars=clean(dataset)
+vocab_size=len(chars)
 
 
 def encoder(text):
